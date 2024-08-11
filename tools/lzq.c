@@ -95,7 +95,7 @@ void main() {
 		lzoutput[s++] = beststart >> 8;
 		lzoutput[s++] = beststart % 256;
 		lzoutput[s++] = bestlength >> 8;
-		lzoutput[s++] = beststart % 256;
+		lzoutput[s++] = bestlength % 256;
 		lzoutput[s++] = pix[target + bestlength];
 		s++;
 
