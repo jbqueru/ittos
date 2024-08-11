@@ -25,4 +25,9 @@
 
 mkdir -p out/bin
 mkdir -p out/gfx
-mkdir -p out/gemdos
+mkdir -p out/tos
+
+cc tools/lzq.c -o out/bin/lzq
+out/bin/lzq
+
+~/code/rmac/rmac -s -v -p -4 src/lzq_test.s -o out/tos/LZQ.PRG
