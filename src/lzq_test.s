@@ -225,7 +225,6 @@ PaletteCopy:
 	moveq.l	#0, d7
 .DirectPixel:
 	move.l	fb_front, a1
-	move.l	fb_back, a2
 	move.w	d7, d0
 	lsr.w	#4, d0
 	lsl.w	#3, d0
@@ -244,13 +243,8 @@ PaletteCopy:
 	moveq.l	#3, d6
 .Plane:
 	lsr.b	d1
-	bcs.s	.Pon
-	bclr.b	d0, (a1)
-	bclr.b	d0, (a2)
-	bra.s	.Pdone
-.Pon:
+	bcc.s	.Pdone
 	bset.b	d0, (a1)
-	bset.b	d0, (a2)
 .Pdone:
 	addq.w	#2, a1
 	addq.w	#2, a2
@@ -287,8 +281,8 @@ MainLoop:
 ; ***********************
 
 	move.l	fb_front, d0
-	move.l	fb_back, fb_front
-	move.l	d0, fb_back
+;	move.l	fb_back, fb_front
+;	move.l	d0, fb_back
 	lsr.l	#8, d0
 	move.b	d0, $ffff8203.w
 	lsr.l	#8, d0
