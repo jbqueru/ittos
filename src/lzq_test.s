@@ -221,9 +221,11 @@ PaletteCopy:
 ; #########################
 ; #########################
 
-	lea.l	Pixels, a0
+	lea.l	LZData, a0
 	moveq.l	#0, d7
 .DirectPixel:
+
+	add.w	2(a0), d7
 	move.l	fb_front, a1
 	move.w	d7, d0
 	lsr.w	#4, d0
@@ -236,7 +238,7 @@ PaletteCopy:
 	move.w	d7, d0
 	not.w	d0
 	andi.w	#7, d0
-	move.b	(a0)+, d1
+	move.b	4(a0), d1
 
 	moveq.l	#3, d6
 .Plane:
@@ -248,8 +250,10 @@ PaletteCopy:
 	addq.w	#2, a2
 	dbra	d6, .Plane
 
+	addq.w	#6, a0
+
 	addq.w	#1, d7
-	cmp.w	#64000, d7
+	cmpa.l	#EndLZData, a0
 	bne.s	.DirectPixel
 
 ; #############################################################################
@@ -382,8 +386,10 @@ VBL_Empty:
 ; #############################################################################
 
 	.data
-Pixels:
-	.incbin	"out/gfx/pixels.bin"
+	.even
+LZData:
+	.incbin	"out/gfx/lz.bin"
+EndLZData:
 
 ; *************
 ; **         **
