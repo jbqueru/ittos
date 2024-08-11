@@ -32,6 +32,8 @@ int pix[64000];
 
 unsigned char output[64000];
 
+unsigned char lzoutput[64000 * 6];
+
 int tgablue(int x, int y) {
 	return tga[18 + (x + y * 320) * 3];
 }
@@ -63,4 +65,44 @@ void main() {
 	fwrite(output, 1, 64000, outputfile);
 	fclose(outputfile);
 
+	int s = 0;
+
+	for (int target = 0; target < 64000; target++) {
+		int beststart = 0;
+		int bestlength = 0;
+		for (int start = 0; start < target; start++) {
+			int length;
+			for (length = 0; length < 64000 - target; length++) {
+				if (pix[start + length] != pix[target + length]) {
+					break;
+				}
+				if (length >= bestlength) {
+					bestlength = length;
+					beststart = start;
+				}
+			}
+		}
+		if (bestlength == 0) {
+//			printf("no match found for %d\n", target);
+		} else {
+			if (target + bestlength == 64000) {
+//				printf("input overflow\n");
+				bestlength--;
+			}
+//			printf("found match of %d pixels at %d for %d\n", bestlength, beststart, target);
+		}
+
+		lzoutput[s++] = beststart >> 8;
+		lzoutput[s++] = beststart % 256;
+		lzoutput[s++] = bestlength >> 8;
+		lzoutput[s++] = beststart % 256;
+		lzoutput[s++] = pix[target + bestlength];
+		s++;
+
+		target += bestlength;
+	}
+
+	FILE* lzfile = fopen("out/gfx/lz.bin", "wb");
+	fwrite(lzoutput, 1, s, lzfile);
+	fclose(lzfile);
 }
