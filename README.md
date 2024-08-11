@@ -2,6 +2,21 @@
 
 Inside Trip To Outer Space, a demo for Atari ST
 
+# Execution environment
+
+For lack of access to a real ST, this demo is developed with
+the [hatari](https://hatari.tuxfamily.org/) emulator, with
+[EmuTOS](https://emutos.sourceforge.io/) as the Operating
+System.
+
+I prefer to use the following settings for hatari:
+```
+<hatari> --machine st --memsize 2048 --cpuclock 8 --compatible yes
+--cpu-exact yes --spec512 1 --borders yes --statusbar yes --crop yes
+--drive-led no --confirm-quit no  --fast-boot yes
+--tos <tos> --harddrive <dir>
+```
+
 # (Un)important things
 
 ## Licensing
