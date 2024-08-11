@@ -222,28 +222,43 @@ PaletteCopy:
 ; #########################
 
 	lea.l	Pixels, a0
-	movea.l	fb_front, a1
-	movea.l	fb_back, a2
+	moveq.l	#0, d7
+.DirectPixel:
+	move.l	fb_front, a1
+	move.l	fb_back, a2
+	move.w	d7, d0
+	lsr.w	#4, d0
+	lsl.w	#3, d0
+	adda.w	d0, a1
+	adda.w	d0, a2
+	move.w	d7, d0
+	lsr.w	#3, d0
+	andi.w	#1, d0
+	adda.w	d0, a1
+	adda.w	d0, a2
+	move.w	d7, d0
+	not.w	d0
+	andi.w	#7, d0
+	move.b	(a0)+, d1
 
-	move.w	#3999, d7
-.Block:
-	moveq.l	#15, d6
-.Pixel:
-	move.b	(a0)+, d4
-	lsr.b	d4
-	roxl.w	d0
-	lsr.b	d4
-	roxl.w	d1
-	lsr.b	d4
-	roxl.w	d2
-	lsr.b	d4
-	roxl.w	d3
-	dbf	d6, .Pixel
-	movem.w	d0-d3, (a1)
-	movem.w	d0-d3, (a2)
-	addq.l	#8, a1
-	addq.l	#8, a2
-	dbf	d7, .Block
+	moveq.l	#3, d6
+.Plane:
+	lsr.b	d1
+	bcs.s	.Pon
+	bclr.b	d0, (a1)
+	bclr.b	d0, (a2)
+	bra.s	.Pdone
+.Pon:
+	bset.b	d0, (a1)
+	bset.b	d0, (a2)
+.Pdone:
+	addq.w	#2, a1
+	addq.w	#2, a2
+	dbra	d6, .Plane
+
+	addq.w	#1, d7
+	cmp.w	#64000, d7
+	bne.s	.DirectPixel
 
 ; #############################################################################
 ; #############################################################################
