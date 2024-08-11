@@ -7,7 +7,7 @@ Inside Trip To Outer Space, a demo for Atari ST
 ## Licensing
 
 The code in this repository is licensed under the terms of the
-[AGPL, version 3](https://www.gnu.org/licenses/agpl-3.0.en.html)
+**[AGPL, version 3](https://www.gnu.org/licenses/agpl-3.0.en.html)**
 or later, with the following additional restriction:
 **If you make the program available for third parties to use on hardware
 you own (or co-own, lease, rent, or otherwise control,) such as public
@@ -18,7 +18,7 @@ will apply even if no network is involved.**
 As a special exception, the source assets for the demo (images, text,
 music, movie files) as well as output from the demo (screenshots,
 audio or video recordings) are also optionally licensed under the
-[CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)
+**[CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)**
 License. That exception explicitly does not apply to source code or
 object/executable code, only to assets/media files.
 
@@ -70,7 +70,7 @@ without any intent to make a profit.
 _Don't even think of using any code from this project for
 anything remotely security-sensitive. That would be awfully
 stupid.
-The security features of the target hardware are unadequate
+The security features of the target hardware are inadequate
 by modern standards, and the code only works when those
 security features are disabled (supervisor mode).
 Finally, the code is developed in assembly language, which
