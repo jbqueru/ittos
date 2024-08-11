@@ -229,12 +229,10 @@ PaletteCopy:
 	lsr.w	#4, d0
 	lsl.w	#3, d0
 	adda.w	d0, a1
-	adda.w	d0, a2
 	move.w	d7, d0
 	lsr.w	#3, d0
 	andi.w	#1, d0
 	adda.w	d0, a1
-	adda.w	d0, a2
 	move.w	d7, d0
 	not.w	d0
 	andi.w	#7, d0
