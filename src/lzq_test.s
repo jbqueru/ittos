@@ -224,7 +224,13 @@ PaletteCopy:
 	lea.l	LZData, a0
 	moveq.l	#0, d7
 .DirectPixel:
-	add.w	(a0), d7
+	move.w	(a0), d6
+	beq.s	.DoneRun
+	subq.w	#1, d6
+.RunPixel:
+	addq.w	#1, d7
+	dbf	d6, .RunPixel
+.DoneRun:
 	move.l	fb_front, a1
 	move.w	d7, d0
 	lsr.w	#4, d0
